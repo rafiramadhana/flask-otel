@@ -11,7 +11,13 @@ from opentelemetry.propagate import extract
 from opentelemetry.sdk.resources import SERVICE_NAME, Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExporter
-from opentelemetry.trace import SpanKind, get_tracer_provider, set_tracer_provider
+from opentelemetry.trace import (
+    SpanKind,
+    Status,
+    StatusCode,
+    get_tracer_provider,
+    set_tracer_provider,
+)
 
 provider = TracerProvider(resource=Resource(attributes={SERVICE_NAME: "app"}))
 processor = BatchSpanProcessor(OTLPSpanExporter())
@@ -28,11 +34,13 @@ app = Flask(__name__)
 def purchase_book():
     with tracer.start_as_current_span("purchase_book"):
         validate_book()
-        order_book()
-        return {
-            "purchase_id": 1,
-            "book_name": "Tenggelamnya Kapal van der Wijck",
-        }
+        try:
+            order_book()
+        except Exception as ex:
+            trace.get_current_span().set_status(Status(StatusCode.ERROR))
+            trace.get_current_span().record_exception(ex)
+            return 'Failed', 500
+        return 'OK', 200
 
 
 def validate_book():
@@ -42,7 +50,10 @@ def validate_book():
 
 def order_book():
     with tracer.start_as_current_span("order_book"):
-        time.sleep(random.uniform(100, 500)/1000)
+        t = random.uniform(100, 500)
+        time.sleep(t/1000)
+        if t > 400:
+            raise Exception("Sleep too long: "+str(t))
 
 
 if __name__ == "__main__":
