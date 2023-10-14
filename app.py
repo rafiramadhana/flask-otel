@@ -1,7 +1,9 @@
 import random
 import time
 
-from flask import Flask, request
+from flask import Flask, current_app
+from flask import g as app_ctx
+from flask import jsonify, request
 from opentelemetry import trace
 from opentelemetry.exporter.jaeger.thrift import JaegerExporter
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
@@ -39,7 +41,7 @@ def purchase_book():
         except Exception as ex:
             trace.get_current_span().set_status(Status(StatusCode.ERROR))
             trace.get_current_span().record_exception(ex)
-            return 'Failed', 500
+            return 'Failed', 408
         return 'OK', 200
 
 
@@ -50,10 +52,10 @@ def validate_book():
 
 def order_book():
     with tracer.start_as_current_span("order_book"):
-        t = random.uniform(100, 500)
+        t = random.uniform(100, 1500)
         time.sleep(t/1000)
-        if t > 400:
-            raise Exception("Sleep too long: "+str(t))
+        if t > 700:
+            raise Exception("Book server is on high load! Latency: "+str(t))
 
 
 if __name__ == "__main__":
