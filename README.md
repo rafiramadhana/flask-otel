@@ -30,3 +30,5 @@ TODO:
 - [x] Add tracing for error
 - [x] Write blog
 - [ ] Convert blog to slides
+
+Slide: https://docs.google.com/presentation/d/1zbPvoadDVLjIe4DW7HO8KgXrACsEXPzyEGmmaLZb1s0/edit?usp=sharing
