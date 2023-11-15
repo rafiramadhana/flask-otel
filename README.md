@@ -31,4 +31,4 @@ TODO:
 - [x] Write blog
 - [ ] Convert blog to slides
 
-Slide: (WIP) (Google Slides)[https://docs.google.com/presentation/d/1zbPvoadDVLjIe4DW7HO8KgXrACsEXPzyEGmmaLZb1s0/edit?usp=sharing]
+Slide: (WIP) [Google Slides](https://docs.google.com/presentation/d/1zbPvoadDVLjIe4DW7HO8KgXrACsEXPzyEGmmaLZb1s0/edit?usp=sharing)
