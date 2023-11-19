@@ -29,6 +29,6 @@ TODO:
 - [x] Add tracing for high latency
 - [x] Add tracing for error
 - [x] Write blog
-- [ ] Convert blog to slides
+- [x] Convert blog to slides
 
-Slide: (WIP) [Google Slides](https://docs.google.com/presentation/d/1zbPvoadDVLjIe4DW7HO8KgXrACsEXPzyEGmmaLZb1s0/edit?usp=sharing)
+Slide: [Google Slides](https://docs.google.com/presentation/d/1zbPvoadDVLjIe4DW7HO8KgXrACsEXPzyEGmmaLZb1s0/edit?usp=sharing)
